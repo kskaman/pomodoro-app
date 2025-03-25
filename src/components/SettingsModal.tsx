@@ -4,6 +4,13 @@ import arrowUpIcon from "../assets/icon-arrow-up.svg";
 import arrowDownIcon from "../assets/icon-arrow-down.svg";
 import { Font, themeColor, TimeSettings } from "../types/types";
 import { SettingsContext } from "../context/SettingsContext";
+import {
+  alarmOptions,
+  bgColorClasses,
+  colorOptions,
+  fontOptions,
+  timeFields,
+} from "../constants/constants";
 
 const Divider = () => {
   return <div className="w-full h-px bg-[#e3e1e1]"></div>;
@@ -80,6 +87,7 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
   const [time, setTime] = useState<TimeSettings>(() => settings.timeSettings);
   const [font, setFont] = useState<Font>(settings.fontSetting);
   const [color, setColor] = useState<themeColor>(settings.colorSetting);
+  const [alarmSound, setAlarmSound] = useState<string>(settings.alarmSound);
 
   useEffect(() => {
     setTime(settings.timeSettings);
@@ -87,27 +95,12 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
     setColor(settings.colorSetting);
   }, [settings]);
 
-  // Mapping for time fields
-  const timeFields = [
-    { label: "pomodoro", key: "pomodoro" },
-    { label: "short break", key: "short" },
-    { label: "long break", key: "long" },
-  ];
-
-  const fontOptions: Font[] = ["sans", "slab", "mono"];
-  const colorOptions: themeColor[] = ["warmPink", "coolCyan", "vividPurple"];
-
-  const colorClasses: Record<themeColor, string> = {
-    warmPink: "bg-warmPink",
-    coolCyan: "bg-coolCyan",
-    vividPurple: "bg-vividPurple",
-  };
-
   const handleApply = () => {
     const newSettings = {
       timeSettings: time,
       fontSetting: font,
       colorSetting: color,
+      alarmSound: alarmSound,
     };
     updateSettings(newSettings);
     onClose();
@@ -115,7 +108,7 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-midnight bg-opacity-50 flex justify-center items-center z-50">
-      <div className="w-[90%] sm:w-[540px] h-[85%] sm:h-[464px] bg-white rounded-[25px] py-[40px] relative flex justify-between flex-col">
+      <div className="w-[90%] sm:w-[540px] h-[85%] sm:h-[550px] bg-white rounded-[25px] py-[40px] relative flex justify-between flex-col">
         {/* Heading and close button */}
         <div className="flex justify-between items-center px-[40px]">
           <h2 className="text-[28px] font-bold text-midnight">Settings</h2>
@@ -148,7 +141,7 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
           <Divider />
 
           {/* Font Options */}
-          <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-0 items-center px-[40px]">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-0 items-center">
             <SubHeading text="Font" />
             <div className="flex gap-[16px]">
               {fontOptions.map((option: Font) => (
@@ -170,14 +163,14 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
           <Divider />
 
           {/* Color Options */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 px-[40px]">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
             <SubHeading text="color" />
             <div className="flex gap-[16px]">
               {colorOptions.map((option: themeColor) => (
                 <div
                   key={option}
                   onClick={() => setColor(option)}
-                  className={`relative cursor-pointer w-[40px] h-[40px] rounded-full ${colorClasses[option]}`}
+                  className={`relative cursor-pointer w-[40px] h-[40px] rounded-full ${bgColorClasses[option]}`}
                 >
                   {color === option && (
                     <div
@@ -191,8 +184,26 @@ const SettingsModal = ({ onClose }: SettingsModalProps) => {
               ))}
             </div>
           </div>
-        </div>
 
+          <Divider />
+          {/* Alarm Options */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <SubHeading text="alarm" />
+            <select
+              value={alarmSound}
+              onChange={(e) => setAlarmSound(e.target.value)}
+              className="w-[224px] h-[40px] rounded-full 
+              bg-misty text-deepNavy text-[14px] font-bold py-2 
+              px-3 rounded-full appearance-none focus:outline-none"
+            >
+              {alarmOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         {/* Apply button */}
         <button
           onClick={handleApply}

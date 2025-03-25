@@ -1,12 +1,7 @@
 import { useContext } from "react";
-import { Session, themeColor } from "../types/types";
+import { Session } from "../types/types";
 import { SettingsContext } from "../context/SettingsContext";
-
-const bgClasses: Record<themeColor, string> = {
-  warmPink: "bg-warmPink",
-  coolCyan: "bg-coolCyan",
-  vividPurple: "bg-vividPurple",
-};
+import { bgColorClasses } from "../constants/constants";
 
 interface NavigationProps {
   selectedSession: Session;
@@ -35,7 +30,9 @@ const Navigation = ({
             onClick={() => setSelectedSession(s)}
             className={`cursor-pointer
               ${selectedSession === s ? "text-deepNavy" : "softIndigo"}
-              ${selectedSession === s ? bgClasses[colorSetting] : "inherit"}
+              ${
+                selectedSession === s ? bgColorClasses[colorSetting] : "inherit"
+              }
               w-[120px] m-[8px] rounded-full h-[48px]
               flex items-center justify-center font-bold`}
           >

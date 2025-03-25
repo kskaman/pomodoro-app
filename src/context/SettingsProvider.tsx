@@ -16,6 +16,7 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
     },
     fontSetting: "sans",
     colorSetting: "warmPink",
+    alarmSound: "classic",
   });
 
   useEffect(() => {

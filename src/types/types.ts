@@ -14,4 +14,5 @@ export interface Settings {
   timeSettings: TimeSettings;
   fontSetting: Font;
   colorSetting: themeColor;
+  alarmSound: string;
 }

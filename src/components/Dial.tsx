@@ -7,14 +7,7 @@ import {
 } from "react";
 import { SettingsContext } from "../context/SettingsContext";
 import { Session } from "../types/types";
-import audioAlarm from "../assets/audios/classic-alarm.wav";
-
-// Map color keys to actual color values for the SVG stroke.
-const ringColors: Record<string, string> = {
-  warmPink: "#f87070",
-  coolCyan: "#70f3f8",
-  vividPurple: "#d881f8",
-};
+import { alarmOptions, ringColors } from "../constants/constants";
 
 interface DialProps {
   selectedSession: Session;
@@ -22,7 +15,8 @@ interface DialProps {
 }
 
 const Dial = ({ selectedSession, parentWidth }: DialProps) => {
-  const { colorSetting, timeSettings } = useContext(SettingsContext).settings;
+  const { colorSetting, timeSettings, alarmSound } =
+    useContext(SettingsContext).settings;
 
   // Derive the total time for the selected session.
   const totalMinutes =
@@ -43,11 +37,15 @@ const Dial = ({ selectedSession, parentWidth }: DialProps) => {
 
   const alarmAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Initialize the alarm Audio and set it to loop
   useEffect(() => {
-    alarmAudioRef.current = new Audio(audioAlarm);
-    alarmAudioRef.current.loop = true;
-  }, []);
+    const selectedAlarm = alarmOptions.find(
+      (option) => option.value === alarmSound
+    );
+    if (selectedAlarm) {
+      alarmAudioRef.current = new Audio(selectedAlarm.value);
+      alarmAudioRef.current.loop = true;
+    }
+  }, [alarmSound]);
 
   /**
    * useLayoutEffect ensures that the updates for timeLeft and isRunning

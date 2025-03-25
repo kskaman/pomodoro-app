@@ -11,6 +11,7 @@ export const SettingsContext = createContext<SettingsContextProps>({
     timeSettings: { pomodoro: 25, short: 5, long: 15 },
     fontSetting: "sans",
     colorSetting: "warmPink",
+    alarmSound: "classic",
   },
   updateSettings: () => {},
 });
