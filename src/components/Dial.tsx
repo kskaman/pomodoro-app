@@ -131,7 +131,8 @@ const Dial = ({ selectedSession, parentWidth }: DialProps) => {
     <>
       <div
         className="relative bg-midnight rounded-full
-          w-[80vw] h-[80vw] sm:w-[410px] sm:h-[410px]
+          w-[70vw] h-[70vw] sm:w-[410px] sm:h-[410px]
+          min-w-[320px] min-h-[320px]
           flex items-center justify-center
           shadow-2xl shadow-[#2e3258]"
       >
