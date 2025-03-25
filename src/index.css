@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Roboto+Slab:wght@400;700&family=Space+Mono:wght@400;700&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-*: initial;
+  --color-warmPink: #f87070;
+  --color-hoverPink: #f98d8d;
+  --color-coolCyan: #70f3f8;
+  --color-vividPurple: #d881f8;
+  --color-softIndigo: #d7e0ff;
+  --color-deepNavy: #1e213f;
+  --color-midnightBlue: #0a0c1c;
+  --color-white: #ffffff;
+  --color-misty: #eff1fa;
+  --color-midnight: #161932;
+
+  /* Font */
+  --font-sans: "Kumbh Sans";
+  --font-slab: "Roboto Slab";
+  --font-mono: "Space Mono";
+}
